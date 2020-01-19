@@ -40,7 +40,7 @@ public class MalnutritionRepository {
                 return null;
         }
     }
-    public void enleverAddresse(Malnutrition malnutrition){
+    public void enleverMalnutrition(Malnutrition malnutrition){
         new EnleverMaltasynctask(malnutritionDao).execute(malnutrition);
     }
 
@@ -59,7 +59,7 @@ public class MalnutritionRepository {
                 return null;
         }
     }
-    public void maj_Addresse(Malnutrition malnutrition){
+    public void maj_Malnutrition(Malnutrition malnutrition){
         new Maj_Maltasynctask(malnutritionDao).execute(malnutrition);
     }
 

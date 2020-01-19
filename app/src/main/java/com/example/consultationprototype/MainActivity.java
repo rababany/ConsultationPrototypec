@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.consultationprototype.Model.Addresse;
 import com.example.consultationprototype.Model.Diagnostic;
+import com.example.consultationprototype.Model.Malnutrition;
 import com.example.consultationprototype.Model.Patient;
 import com.example.consultationprototype.ViewModel.ActivityMainViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<Addresse> addresses) {
                 for (Addresse a: addresses){
                     Log.i("MY Addresse",a.getHammeau());
+                }
+            }
+        });
+        activityMainViewModel.getToutMalnutrition().observe(this, new Observer<List<Malnutrition>>() {
+            @Override
+            public void onChanged(List<Malnutrition> malnutritions) {
+                for (Malnutrition m:malnutritions){
+                    Log.i("La Malnutrition",m.getPoids_taille());
                 }
             }
         });

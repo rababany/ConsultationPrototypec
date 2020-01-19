@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey;
 import static androidx.room.ForeignKey.CASCADE;
 
 
-@Entity(tableName = "lesmalnutritions",foreignKeys = @ForeignKey(entity = Patient.class,parentColumns = "id_patient",childColumns = "id_malnutrition",onDelete = CASCADE))
+@Entity(tableName = "lesmalnutritions")
 public class Malnutrition extends BaseObservable {
 
     @PrimaryKey

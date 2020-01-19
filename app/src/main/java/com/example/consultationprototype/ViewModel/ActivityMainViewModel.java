@@ -7,6 +7,8 @@ import com.example.consultationprototype.Model.AddresseRepository;
 import com.example.consultationprototype.Model.ConsultationBDD;
 import com.example.consultationprototype.Model.Diagnostic;
 import com.example.consultationprototype.Model.DiagnosticRepository;
+import com.example.consultationprototype.Model.Malnutrition;
+import com.example.consultationprototype.Model.MalnutritionRepository;
 import com.example.consultationprototype.Model.Patient;
 import com.example.consultationprototype.Model.PatientRepository;
 
@@ -23,12 +25,15 @@ public class ActivityMainViewModel extends AndroidViewModel {
     private LiveData<List<Addresse>> touteAdresse;
     private DiagnosticRepository diagnosticRepository;
     private LiveData<List<Diagnostic>> toutDiagnostic;
+    private MalnutritionRepository malnutritionRepository;
+    private LiveData<List<Malnutrition>> toutMalnutrition;
 
     public ActivityMainViewModel(@NonNull Application application) {
         super(application);
         patientRepository = new PatientRepository(application);
         addresseRepository = new AddresseRepository(application);
         diagnosticRepository = new DiagnosticRepository(application);
+        malnutritionRepository = new MalnutritionRepository(application);
 
     }
 
@@ -81,6 +86,26 @@ public class ActivityMainViewModel extends AndroidViewModel {
     }
     public void mettre_a_jourDiagnostic(Diagnostic diagnostic){
         diagnosticRepository.maj_Diagnostic(diagnostic);
+    }
+
+
+
+
+
+
+    public LiveData<List<Malnutrition>> getToutMalnutrition() {
+        toutMalnutrition =malnutritionRepository.getTab_malnutrition();
+        return toutMalnutrition;
+    }
+
+    public void ajouterMalnutrion (Malnutrition malnutrition){
+        malnutritionRepository.ajouterMalnutrition(malnutrition);
+    }
+    public void supprimerMalnutrition (Malnutrition malnutrition){
+        malnutritionRepository.enleverMalnutrition(malnutrition);
+    }
+    public void mettre_a_jourMalnutrition(Malnutrition malnutrition){
+        malnutritionRepository.maj_Malnutrition(malnutrition);
     }
 
 
