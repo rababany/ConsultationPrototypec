@@ -152,19 +152,19 @@ public  static ConsultationBDD instance;
             patientDao.insererPat(patient5);
 
             Malnutrition malnutrition = new Malnutrition();
-            malnutrition.setId_malnutrition(1);
+//            malnutrition.setId_malnutrition(1);
             malnutrition.setOedeme(false);
             malnutrition.setPoids_age("1ET");
             malnutrition.setPoids_taille("2ET");
 
             Malnutrition malnutrition2 = new Malnutrition();
-            malnutrition2.setId_malnutrition(2);
+//            malnutrition2.setId_malnutrition(2);
             malnutrition2.setOedeme(false);
             malnutrition2.setPoids_age("-2ET");
             malnutrition2.setPoids_taille("3ET");
 
             Malnutrition malnutrition3 = new Malnutrition();
-            malnutrition3.setId_malnutrition(3);
+//            malnutrition3.setId_malnutrition(3);
             malnutrition3.setOedeme(false);
             malnutrition3.setPoids_age("-4ET");
             malnutrition3.setPoids_taille("-2ET");

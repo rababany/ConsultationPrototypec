@@ -16,8 +16,8 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(tableName = "lesmalnutritions")
 public class Malnutrition extends BaseObservable {
 
-    @PrimaryKey
-    @ColumnInfo(name = "id_malnutrition")
+    @PrimaryKey(autoGenerate = true)
+//    @ColumnInfo(name = "id_malnutrition")
     private long id_malnutrition;
     @ColumnInfo(name = "poids_taille")
     private String poids_taille;
