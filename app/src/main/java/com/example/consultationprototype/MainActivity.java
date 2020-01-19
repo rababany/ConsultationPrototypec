@@ -6,14 +6,16 @@ import com.example.consultationprototype.Model.Addresse;
 import com.example.consultationprototype.Model.Diagnostic;
 import com.example.consultationprototype.Model.Malnutrition;
 import com.example.consultationprototype.Model.Patient;
-import com.example.consultationprototype.ViewModel.ActivityMainViewModel;
+import com.example.consultationprototype.ViewModel.ActivityAddresseViewModel;
+import com.example.consultationprototype.ViewModel.ActivityDiagnosticViewModel;
+import com.example.consultationprototype.ViewModel.ActivityMalnutritionViewModel;
+import com.example.consultationprototype.ViewModel.ActivityPatientViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -25,7 +27,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainViewModel activityMainViewModel;
+
+    private ActivityAddresseViewModel activityAddresseViewModel;
+    private ActivityDiagnosticViewModel activityDiagnosticViewModel;
+    private ActivityMalnutritionViewModel activityMalnutritionViewModel;
+    private ActivityPatientViewModel activityPatientViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        activityMainViewModel = ViewModelProviders.of(this).get(ActivityMainViewModel.class);
-        activityMainViewModel.getToutDiagnostic().observe(this, new Observer<List<Diagnostic>>() {
+        activityDiagnosticViewModel = ViewModelProviders.of(this).get(ActivityDiagnosticViewModel.class);
+        activityDiagnosticViewModel.getToutDiagnostic().observe(this, new Observer<List<Diagnostic>>() {
             @Override
             public void onChanged(List<Diagnostic> diagnostics) {
                 for (Diagnostic d: diagnostics){
@@ -43,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        activityMainViewModel.getTouteAdresse().observe(this, new Observer<List<Addresse>>() {
+        activityAddresseViewModel = ViewModelProviders.of(this).get(ActivityAddresseViewModel.class);
+        activityAddresseViewModel.getTouteAdresse().observe(this, new Observer<List<Addresse>>() {
             @Override
             public void onChanged(List<Addresse> addresses) {
                 for (Addresse a: addresses){
@@ -51,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        activityMainViewModel.getToutMalnutrition().observe(this, new Observer<List<Malnutrition>>() {
+        activityMalnutritionViewModel = ViewModelProviders.of(this).get(ActivityMalnutritionViewModel.class);
+        activityMalnutritionViewModel.getToutMalnutrition().observe(this, new Observer<List<Malnutrition>>() {
             @Override
             public void onChanged(List<Malnutrition> malnutritions) {
                 for (Malnutrition m:malnutritions){
@@ -59,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        activityMainViewModel.getToutPatient().observe(this, new Observer<List<Patient>>() {
+        activityPatientViewModel = ViewModelProviders.of(this).get(ActivityPatientViewModel.class);
+        activityPatientViewModel.getToutPatient().observe(this, new Observer<List<Patient>>() {
             @Override
             public void onChanged(List<Patient> patients) {
                 for (Patient p:patients) {
