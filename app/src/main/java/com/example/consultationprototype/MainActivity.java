@@ -10,6 +10,7 @@ import com.example.consultationprototype.ViewModel.ActivityAddresseViewModel;
 import com.example.consultationprototype.ViewModel.ActivityDiagnosticViewModel;
 import com.example.consultationprototype.ViewModel.ActivityMalnutritionViewModel;
 import com.example.consultationprototype.ViewModel.ActivityPatientViewModel;
+import com.example.consultationprototype.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -17,11 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
 
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityDiagnosticViewModel activityDiagnosticViewModel;
     private ActivityMalnutritionViewModel activityMalnutritionViewModel;
     private ActivityPatientViewModel activityPatientViewModel;
+    private ActivityMainBinding activityMainBinding;
+    private MainActivityApresClick mainActivityApresClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        activityMainBinding=DataBindingUtil.setContentView(this,R.layout.activity_main);
+        mainActivityApresClick = new MainActivityApresClick();
+        activityMainBinding.setPisterClick(mainActivityApresClick);
 
         activityDiagnosticViewModel = ViewModelProviders.of(this).get(ActivityDiagnosticViewModel.class);
         activityDiagnosticViewModel.getToutDiagnostic().observe(this, new Observer<List<Diagnostic>>() {
@@ -76,14 +85,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+    }
+    public  class MainActivityApresClick {
+        public void clickBouton (View view){
+            Toast.makeText(getApplicationContext(), "click de la bouton", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
