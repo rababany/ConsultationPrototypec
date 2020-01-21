@@ -20,12 +20,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 
+
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityPatientViewModel activityPatientViewModel;
     private ActivityMainBinding activityMainBinding;
     private MainActivityApresClick mainActivityApresClick;
+    private Addresse addressechoisie;
+    private ArrayList<Addresse> addresseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +68,11 @@ public class MainActivity extends AppCompatActivity {
         activityAddresseViewModel.getTouteAdresse().observe(this, new Observer<List<Addresse>>() {
             @Override
             public void onChanged(List<Addresse> addresses) {
+                addresseList=(ArrayList<Addresse>) addresses;
                 for (Addresse a: addresses){
                     Log.i("MY Addresse",a.getHammeau());
                 }
+                afficheSurSpinner();
             }
         });
         activityMalnutritionViewModel = ViewModelProviders.of(this).get(ActivityMalnutritionViewModel.class);
@@ -87,10 +95,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    public  void afficheSurSpinner(){
+        ArrayAdapter<Addresse> addresseArrayAdapter = new  ArrayAdapter<Addresse> (this,R.layout.spinner_item,addresseList);
+        addresseArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        activityMainBinding.setChoixAdapter(addresseArrayAdapter);
+    }
     public  class MainActivityApresClick {
         public void clickBouton (View view){
             Toast.makeText(getApplicationContext(), "click de la bouton", Toast.LENGTH_SHORT).show();
         }
+        public void onSelectItem(AdapterView<?> parent, View view, int pos, long id) {
+
+            addressechoisie = (Addresse) parent.getItemAtPosition(pos);
+
+            String message = " id is " + addressechoisie.getId_addr() + "\n name is " + addressechoisie.getFokontany() + "\n email is " + addressechoisie.getHammeau();
+
+            // Showing selected spinner item
+            Toast.makeText(parent.getContext(), message, Toast.LENGTH_LONG).show();
+
+
+        }
+
     }
 
     @Override
