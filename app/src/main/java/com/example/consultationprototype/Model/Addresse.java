@@ -67,8 +67,8 @@ public class Addresse extends BaseObservable {
     @Override
     public String toString() {
         return
-                 id_addr +  '\'' +
-                 fokontany + '\'' +
-                 hammeau + '\'' ;
+                 id_addr +  '\n' +
+                 fokontany + '\n' +
+                 hammeau + '\n' ;
     }
 }
