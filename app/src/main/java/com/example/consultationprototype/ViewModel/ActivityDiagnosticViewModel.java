@@ -2,8 +2,8 @@ package com.example.consultationprototype.ViewModel;
 
 import android.app.Application;
 
-import com.example.consultationprototype.Model.Diagnostic;
-import com.example.consultationprototype.Model.DiagnosticRepository;
+import com.example.consultationprototype.model.Diagnostic;
+import com.example.consultationprototype.model.DiagnosticRepository;
 
 import java.util.List;
 

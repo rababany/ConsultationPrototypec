@@ -2,8 +2,8 @@ package com.example.consultationprototype.ViewModel;
 
 import android.app.Application;
 
-import com.example.consultationprototype.Model.Patient;
-import com.example.consultationprototype.Model.PatientRepository;
+import com.example.consultationprototype.model.Patient;
+import com.example.consultationprototype.model.PatientRepository;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData;
 public class ActivityPatientViewModel extends AndroidViewModel {
     private PatientRepository patientRepository;
     private LiveData<List<Patient>> toutPatient;
+    private LiveData<List<Patient>> toutPatientAddr;
 
     public ActivityPatientViewModel(@NonNull Application application) {
         super(application);
@@ -22,6 +23,10 @@ public class ActivityPatientViewModel extends AndroidViewModel {
     public LiveData<List<Patient>> getToutPatient() {
         toutPatient = patientRepository.getTab_patient();
         return toutPatient;
+    }
+    public LiveData<List<Patient>> getToutPatientAddr(long idAddrPatient) {
+        toutPatientAddr = patientRepository.getTab_patientAddr(idAddrPatient);
+        return toutPatientAddr;
     }
     public void ajouterPatient (Patient patient){
         patientRepository.ajouterPatient(patient);

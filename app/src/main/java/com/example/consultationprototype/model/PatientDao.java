@@ -1,4 +1,4 @@
-package com.example.consultationprototype.Model;
+package com.example.consultationprototype.model;
 
 import java.util.List;
 
@@ -21,6 +21,9 @@ public interface PatientDao {
 
     @Query("SELECT * FROM lespatients")
     LiveData<List<Patient>> listerPat();
+
+    @Query("SELECT * FROM lespatients  WHERE id_addr_patient ==:idAddrPatient")
+    LiveData<List<Patient>> listerPatAddr(long idAddrPatient);
 
 
 

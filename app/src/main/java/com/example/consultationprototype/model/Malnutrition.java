@@ -1,4 +1,4 @@
-package com.example.consultationprototype.Model;
+package com.example.consultationprototype.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -6,11 +6,8 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import static androidx.room.ForeignKey.CASCADE;
 
 
 @Entity(tableName = "lesmalnutritions")

@@ -1,4 +1,4 @@
-package com.example.consultationprototype.Model;
+package com.example.consultationprototype.model;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -19,6 +19,9 @@ public class PatientRepository {
 
     public LiveData<List<Patient>> getTab_patient() {
         return patientDao.listerPat();
+    }
+    public LiveData<List<Patient>> getTab_patientAddr(long idAddrPatient) {
+        return patientDao.listerPatAddr(idAddrPatient);
     }
 
     public void ajouterPatient(Patient patient){

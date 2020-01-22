@@ -2,8 +2,8 @@ package com.example.consultationprototype.ViewModel;
 
 import android.app.Application;
 
-import com.example.consultationprototype.Model.Addresse;
-import com.example.consultationprototype.Model.AddresseRepository;
+import com.example.consultationprototype.model.Addresse;
+import com.example.consultationprototype.model.AddresseRepository;
 
 import java.util.List;
 

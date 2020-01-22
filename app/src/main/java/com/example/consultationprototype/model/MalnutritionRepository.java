@@ -1,4 +1,4 @@
-package com.example.consultationprototype.Model;
+package com.example.consultationprototype.model;
 
 import android.app.Application;
 import android.os.AsyncTask;

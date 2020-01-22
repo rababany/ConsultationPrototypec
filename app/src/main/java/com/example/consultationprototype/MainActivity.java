@@ -2,23 +2,23 @@ package com.example.consultationprototype;
 
 import android.os.Bundle;
 
-import com.example.consultationprototype.Model.Addresse;
-import com.example.consultationprototype.Model.Diagnostic;
-import com.example.consultationprototype.Model.Malnutrition;
-import com.example.consultationprototype.Model.Patient;
+import com.example.consultationprototype.model.Addresse;
+import com.example.consultationprototype.model.Diagnostic;
+import com.example.consultationprototype.model.Malnutrition;
+import com.example.consultationprototype.model.Patient;
 import com.example.consultationprototype.ViewModel.ActivityAddresseViewModel;
 import com.example.consultationprototype.ViewModel.ActivityDiagnosticViewModel;
 import com.example.consultationprototype.ViewModel.ActivityMalnutritionViewModel;
 import com.example.consultationprototype.ViewModel.ActivityPatientViewModel;
 import com.example.consultationprototype.databinding.ActivityMainBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.util.Log;
@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityApresClick mainActivityApresClick;
     private Addresse addressechoisie;
     private ArrayList<Addresse> addresseList;
+    private ArrayList<Patient> patientAddresseArrayList;
+    private RecyclerView patientRecycleview;
+    private PatientAdapter patientAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Patient> patients) {
                 for (Patient p:patients) {
-                    Log.i("My patients",p.getAge_patient());
+                    Log.i("My patients",p.getAgePatient());
                 }
             }
         });
@@ -99,6 +102,26 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<Addresse> addresseArrayAdapter = new  ArrayAdapter<Addresse> (this,R.layout.spinner_item,addresseList);
         addresseArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         activityMainBinding.setChoixAdapter(addresseArrayAdapter);
+    }
+    public void loadDataPatientArraylist(long idAddrPatient){
+
+        activityPatientViewModel.getToutPatientAddr(idAddrPatient).observe(this, new Observer<List<Patient>>() {
+            @Override
+            public void onChanged(List<Patient> patients) {
+                patientAddresseArrayList = (ArrayList<Patient>)patients;
+                loadRecycleView();
+            }
+        });
+    }
+    public void loadRecycleView(){
+        patientRecycleview = activityMainBinding.secondaryLayout.rvPatient;
+        patientRecycleview.setLayoutManager(new LinearLayoutManager(this));
+        patientRecycleview.setHasFixedSize(true);
+
+        patientAdapter = new PatientAdapter();
+        patientRecycleview.setAdapter(patientAdapter);;
+
+        patientAdapter.setPatientArrayList(patientAddresseArrayList);
     }
     public  class MainActivityApresClick {
         public void clickBouton (View view){
@@ -113,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             // Showing selected spinner item
             Toast.makeText(parent.getContext(), message, Toast.LENGTH_LONG).show();
 
+            loadDataPatientArraylist(addressechoisie.getId_addr());
 
         }
 

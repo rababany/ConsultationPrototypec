@@ -1,4 +1,4 @@
-package com.example.consultationprototype.Model;
+package com.example.consultationprototype.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;

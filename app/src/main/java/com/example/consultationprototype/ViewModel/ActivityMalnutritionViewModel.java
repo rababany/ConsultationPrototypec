@@ -2,8 +2,8 @@ package com.example.consultationprototype.ViewModel;
 
 import android.app.Application;
 
-import com.example.consultationprototype.Model.Malnutrition;
-import com.example.consultationprototype.Model.MalnutritionRepository;
+import com.example.consultationprototype.model.Malnutrition;
+import com.example.consultationprototype.model.MalnutritionRepository;
 
 import java.util.List;
 
