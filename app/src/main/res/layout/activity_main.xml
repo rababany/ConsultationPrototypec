@@ -49,6 +49,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:onClick="@{PisterClick::clickBouton}"
+            app:backgroundTint="@color/colorAccent"
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

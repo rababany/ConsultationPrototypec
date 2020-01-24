@@ -13,11 +13,14 @@ import com.example.consultationprototype.ViewModel.ActivityMalnutritionViewModel
 import com.example.consultationprototype.ViewModel.ActivityPatientViewModel;
 import com.example.consultationprototype.databinding.ActivityMainBinding;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -144,6 +147,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,EDIT_PATIENT_REQUEST_CODE);
             }
         });
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Patient patientPourSuppr = patientAddresseArrayList.get(viewHolder.getAdapterPosition());
+                activityPatientViewModel.supprimerPatient(patientPourSuppr);
+            }
+        }).attachToRecyclerView(patientRecycleview);
     }
     public  class MainActivityApresClick {
         public void clickBouton (View view){
@@ -189,5 +204,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        long addresseclicked = addressechoisie.getId_addr();
+        if (requestCode == ADD_PATIENT_REQUEST_CODE && resultCode ==RESULT_OK){
+            Patient patient = new Patient();
+            patient.setIdAddrPatient(addresseclicked);
+            patient.setAgePatient(data.getStringExtra(AjouterModifierActivity.PATIENT_AGE));
+            patient.setSexePatient(data.getStringExtra(AjouterModifierActivity.PATIENT_SEXE));
+            patient.setPoidsPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_POIDS,0));
+            patient.setPbPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_PB,100));
+            patient.setTaillePatient(data.getLongExtra(AjouterModifierActivity.PATIENT_TAILLE,150));
+//            patient.setIdAddrPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_ID_ADDRESSE,1));
+            patient.setIdDiagPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_ID_DIAG,1));
+            patient.setDateconsultPatient(data.getStringExtra(AjouterModifierActivity.PATIENT_DATECONSULT));
+            activityPatientViewModel.ajouterPatient(patient);
+        }
+        else if (requestCode == EDIT_PATIENT_REQUEST_CODE && resultCode == RESULT_OK){
+            Patient patient = new Patient();
+            patient.setIdPatient(addresseclicked);
+            patient.setAgePatient(data.getStringExtra(AjouterModifierActivity.PATIENT_AGE));
+            patient.setSexePatient(data.getStringExtra(AjouterModifierActivity.PATIENT_SEXE));
+            patient.setPoidsPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_POIDS,0));
+            patient.setPbPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_PB,100));
+            patient.setTaillePatient(data.getLongExtra(AjouterModifierActivity.PATIENT_TAILLE,150));
+            patient.setIdAddrPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_ID_ADDRESSE,1));
+            patient.setIdDiagPatient(data.getLongExtra(AjouterModifierActivity.PATIENT_ID_DIAG,1));
+            patient.setDateconsultPatient(data.getStringExtra(AjouterModifierActivity.PATIENT_DATECONSULT));
+            patient.setIdPatient(addresseclicked);
+            activityPatientViewModel.mettre_a_jourPatient(patient);
+        }
     }
 }
