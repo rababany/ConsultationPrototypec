@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">ConsultationPrototype</string>
     <string name="action_settings">Settings</string>
+    <string name="submit_button">Sauvegarder</string>
+    <string name="AgePatient">Age</string>
+    <string name="SexePatien">Genre</string>
+    <string name="PoidsPatient">Poids</string>
+    <string name="PbPatient">PB</string>
+    <string name="TaillePatient">Taille</string>
+    <string name="AddressePatient">Addresse</string>
+    <string name="DiagnosticPatient">Diagnostic</string>
+    <string name="DateConsultPatient">Date de la consultation </string>
 </resources>

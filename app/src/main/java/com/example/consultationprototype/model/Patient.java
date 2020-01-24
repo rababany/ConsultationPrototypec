@@ -1,9 +1,13 @@
 package com.example.consultationprototype.model;
 
 
+import android.widget.TextView;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -145,6 +149,15 @@ public class Patient extends BaseObservable {
     public void setDateconsultPatient(String dateconsultPatient) {
         this.dateconsultPatient = dateconsultPatient;
         notifyPropertyChanged(BR.dateconsultPatient);
+    }
+    @BindingAdapter("android:text")
+    public static void setText(TextView view, long value) {
+        view.setText(Long.toString(value));
+    }
+
+    @InverseBindingAdapter(attribute = "android:text")
+    public static long getText(TextView view) {
+        return Long.parseLong(view.getText().toString());
     }
 
 }

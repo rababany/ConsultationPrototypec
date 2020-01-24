@@ -1,5 +1,6 @@
 package com.example.consultationprototype;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.consultationprototype.model.Addresse;
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Patient> patientAddresseArrayList;
     private RecyclerView patientRecycleview;
     private PatientAdapter patientAdapter;
+    private long patientIdAjout;
+
+    private static final int ADD_PATIENT_REQUEST_CODE = 1;
+    private static final int EDIT_PATIENT_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +127,32 @@ public class MainActivity extends AppCompatActivity {
         patientRecycleview.setAdapter(patientAdapter);;
 
         patientAdapter.setPatientArrayList(patientAddresseArrayList);
+        patientAdapter.setListener(new PatientAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Patient patient) {
+                patientIdAjout = patient.getIdPatient();
+                Intent intent = new Intent(MainActivity.this, AjouterModifierActivity.class);
+                intent.putExtra(AjouterModifierActivity.PATIENT_ID,patientIdAjout);
+                intent.putExtra(AjouterModifierActivity.PATIENT_AGE,patient.getAgePatient());
+                intent.putExtra(AjouterModifierActivity.PATIENT_POIDS,patient.getPoidsPatient());
+                intent.putExtra(AjouterModifierActivity.PATIENT_SEXE,patient.getSexePatient());
+                intent.putExtra(AjouterModifierActivity.PATIENT_TAILLE,patient.getTaillePatient());
+                intent.putExtra(AjouterModifierActivity.PATIENT_PB,patient.getPbPatient());
+                intent.putExtra(AjouterModifierActivity.PATIENT_ID_ADDRESSE,patient.getIdAddrPatient());
+                intent.putExtra(AjouterModifierActivity.PATIENT_ID_DIAG,patient.getIdDiagPatient());
+                intent.putExtra(AjouterModifierActivity.PATIENT_DATECONSULT,patient.getDateconsultPatient());
+                startActivityForResult(intent,EDIT_PATIENT_REQUEST_CODE);
+            }
+        });
     }
     public  class MainActivityApresClick {
         public void clickBouton (View view){
-            Toast.makeText(getApplicationContext(), "click de la bouton", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "click de la bouton", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AjouterModifierActivity.AjouteretModifierParClick.class);
+            startActivityForResult(intent,ADD_PATIENT_REQUEST_CODE);
+
+
+
         }
         public void onSelectItem(AdapterView<?> parent, View view, int pos, long id) {
 
