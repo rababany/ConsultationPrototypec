@@ -152,12 +152,29 @@ public class Patient extends BaseObservable {
     }
     @BindingAdapter("android:text")
     public static void setText(TextView view, long value) {
-        view.setText(Long.toString(value));
+        boolean setValue = view.getText().length() == 0;
+        try {
+            if (!setValue){
+                setValue = Long.parseLong(view.getText().toString()) !=value;
+            }
+        } catch (NumberFormatException e){
+
+        }
+        if (setValue){
+            view.setText(String.valueOf(value));
+        }
+
     }
 
     @InverseBindingAdapter(attribute = "android:text")
     public static long getText(TextView view) {
-        return Long.parseLong(view.getText().toString());
+
+        try {
+            return Long.parseLong(view.getText().toString());
+        } catch (NumberFormatException e)
+        {
+            return 0;
+        }
     }
 
 }
