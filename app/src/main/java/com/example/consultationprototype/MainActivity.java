@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     public  class MainActivityApresClick {
         public void clickBouton (View view){
 //            Toast.makeText(getApplicationContext(), "click de la bouton", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, AjouterModifierActivity.AjouteretModifierParClick.class);
+            Intent intent = new Intent(MainActivity.this, AjouterModifierActivity.class);
             startActivityForResult(intent,ADD_PATIENT_REQUEST_CODE);
 
 
