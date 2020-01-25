@@ -4,16 +4,21 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import androidx.lifecycle.LiveData;
 
 public class PatientRepository {
     private PatientDao patientDao;
     private LiveData<List<Patient>> tab_patient;
+    private Executor executor;
 
     public PatientRepository(Application application) {
+        executor = Executors.newFixedThreadPool(5);
         ConsultationBDD consultationBDD = ConsultationBDD.getInstance(application);
         patientDao = consultationBDD.patientDao();
+
 
     }
 
@@ -24,61 +29,38 @@ public class PatientRepository {
         return patientDao.listerPatAddr(idAddrPatient);
     }
 
-    public void ajouterPatient(Patient patient){
-        new InsererPatientasynctask(patientDao).execute(patient);
+    public void ajouterPatient(final Patient patient){
+
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                patientDao.insererPat(patient);
+            }
+        });
     }
 
-    private static class InsererPatientasynctask extends AsyncTask <Patient,Void ,Void > {
 
-        private PatientDao patientDao;
-
-
-        public InsererPatientasynctask(PatientDao patientDao) {
-            this.patientDao = patientDao;
-        }
-
-        @Override
-        protected Void doInBackground(Patient... patients) {
-            patientDao.insererPat(patients[0]);
-                return null;
-        }
-    }
-    public void enleverPatient(Patient patient){
-        new EnleverPatientasynctask(patientDao).execute(patient);
+    public void enleverPatient(final Patient patient){
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                patientDao.supprimerPat(patient);
+            }
+        });
     }
 
-    private static class EnleverPatientasynctask extends AsyncTask <Patient,Void ,Void > {
 
-        private PatientDao patientDao;
-
-
-        public EnleverPatientasynctask(PatientDao patientDao) {
-            this.patientDao = patientDao;
-        }
-
-        @Override
-        protected Void doInBackground(Patient... patients) {
-            patientDao.supprimerPat(patients[0]);
-            return null;
-        }
-    }
-    public void maj_Patient(Patient patient){
-        new Maj_Patientasynctask(patientDao).execute(patient);
+    public void maj_Patient(final Patient patient){
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                patientDao.modifierPat(patient);
+            }
+        });
     }
 
-    private static class Maj_Patientasynctask extends AsyncTask <Patient,Void ,Void > {
 
-        private PatientDao patientDao;
-
-
-        public Maj_Patientasynctask(PatientDao patientDao) {
-            this.patientDao = patientDao;
-        }
-
-        @Override
-        protected Void doInBackground(Patient... patients) {
-            patientDao.modifierPat(patients[0]);
-            return null;
-        }
-    }
 }
