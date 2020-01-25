@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientTiroir>{
@@ -35,9 +36,13 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientT
         return patientArrayList.size();
     }
 
-    public void setPatientArrayList(ArrayList<Patient> patientArrayList) {
-        this.patientArrayList = patientArrayList;
-        notifyDataSetChanged();
+    public void setPatientArrayList(ArrayList<Patient> nvpatientArrayList) {
+//        this.patientArrayList = patientArrayList;
+//        notifyDataSetChanged();
+        final DiffUtil.DiffResult result= DiffUtil.calculateDiff(new PatientDifCallback(patientArrayList,nvpatientArrayList),false);
+        patientArrayList = nvpatientArrayList;
+        result.dispatchUpdatesTo(PatientAdapter.this);
+
     }
 
     class PatientTiroir extends RecyclerView.ViewHolder{

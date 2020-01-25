@@ -3,6 +3,8 @@ package com.example.consultationprototype.model;
 
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -177,4 +179,24 @@ public class Patient extends BaseObservable {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Patient)) return false;
+        Patient patient = (Patient) o;
+        return getIdPatient() == patient.getIdPatient() &&
+                getPoidsPatient() == patient.getPoidsPatient() &&
+                getTaillePatient() == patient.getTaillePatient() &&
+                getPbPatient() == patient.getPbPatient() &&
+                getIdDiagPatient() == patient.getIdDiagPatient() &&
+                getIdAddrPatient() == patient.getIdAddrPatient() &&
+                getAgePatient().equals(patient.getAgePatient()) &&
+                getSexePatient().equals(patient.getSexePatient()) &&
+                getDateconsultPatient().equals(patient.getDateconsultPatient());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdPatient(), getAgePatient(), getSexePatient(), getPoidsPatient(), getTaillePatient(), getPbPatient(), getIdDiagPatient(), getIdAddrPatient(), getDateconsultPatient());
+    }
 }
